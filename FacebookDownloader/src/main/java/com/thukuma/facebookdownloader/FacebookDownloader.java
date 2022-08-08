@@ -63,9 +63,9 @@ public class FacebookDownloader {
         }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // String secondUrl = url.replace("www.","www.m.");
-                // FaceBookDownloderSecondError(secondUrl, onComplete,onError);
-                onError.onError(error);
+                String secondUrl = url.replace("www.","www.m.");
+                FaceBookDownloderSecondError(secondUrl, onComplete,onError);
+               
 
             }
         }){
@@ -81,62 +81,62 @@ public class FacebookDownloader {
 
         mRequestQueue.add(mStringRequest);
     }
-//     public  void FaceBookDownloderSecondError(String url,onComplete onComplete,onError onError){
-//         mRequestQueue = Volley.newRequestQueue(context);
-//         mStringRequest = new StringRequest(Request.Method.POST, "https://fdown.net/download.php", new com.android.volley.Response.Listener<String>() {
-//             @Override
-//             public void onResponse(String response) {
+    public  void FaceBookDownloderSecondError(String url,onComplete onComplete,onError onError){
+        mRequestQueue = Volley.newRequestQueue(context);
+        mStringRequest = new StringRequest(Request.Method.POST, "https://fdown.net/download.php", new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
-//                 if (!response.isEmpty()){
+                if (!response.isEmpty()){
 
-//                     Document doc = Jsoup.parse(response);
-//                     sdlink = doc.select("a[id=sdlink]").attr("href");
-//                     hdlink = doc.select("a[id=hdlink]").attr("href");
-//                     String title = doc.select("div.lib-header").text();
-//                     String desc = doc.select("div.lib-desc").text();
-//                     String img = doc.select("img.lib-img-show").attr("src");
+                    Document doc = Jsoup.parse(response);
+                    sdlink = doc.select("a[id=sdlink]").attr("href");
+                    hdlink = doc.select("a[id=hdlink]").attr("href");
+                    String title = doc.select("div.lib-header").text();
+                    String desc = doc.select("div.lib-desc").text();
+                    String img = doc.select("img.lib-img-show").attr("src");
 
-//                     if (!sdlink.isEmpty()){
+                    if (!sdlink.isEmpty()){
 
-//                         XModal modal = new XModal(
-//                                 sdlink,hdlink,title,desc,img
-//                         );
-//                         onComplete.onComplete(modal);
+                        XModal modal = new XModal(
+                                sdlink,hdlink,title,desc,img
+                        );
+                        onComplete.onComplete(modal);
 
-//                     }else {
+                    }else {
 
-//                     }
-
-
-//                 }else {
-
-//                     Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
-//                 }
-
-//             }
-//         }, new com.android.volley.Response.ErrorListener() {
-//             @Override
-//             public void onErrorResponse(VolleyError error) {
-
-//                 onError.onError(error);
-// //                Intent i = new Intent(getContext(),Web_View.class);
-// //                i.putExtra("url",url);
-// //                startActivity(i);
-
-//             }
-//         }){
-//             @Nullable
-//             @Override
-//             protected Map<String, String> getParams() throws AuthFailureError {
-//                 Map<String, String>  params = new HashMap<String, String>();
-//                 params.put("URLz",url);
-//                 return params;
-//             }
-//         };
+                    }
 
 
-//         mRequestQueue.add(mStringRequest);
-//     }
+                }else {
+
+                    Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                onError.onError(error);
+//                Intent i = new Intent(getContext(),Web_View.class);
+//                i.putExtra("url",url);
+//                startActivity(i);
+
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("URLz",url);
+                return params;
+            }
+        };
+
+
+        mRequestQueue.add(mStringRequest);
+    }
 
     public interface onComplete{
         void onComplete(XModal xModal);
